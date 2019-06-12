@@ -1,0 +1,46 @@
+{
+  "name": "great-books",
+  "version": "1.0.0",
+  "description": "MERN Stack Web App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon server.js\" \"cd client && npm run start\"",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+  },
+  "engines": {
+    "node": "10.15.3"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "client/*"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robjpar/great-books.git"
+  },
+  "keywords": [
+    "react",
+    "mongo",
+    "express",
+    "node"
+  ],
+  "author": "R.J.P.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robjpar/great-books/issues"
+  },
+  "homepage": "https://github.com/robjpar/great-books#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "if-env": "^1.0.4",
+    "mongoose": "^5.5.14"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.19.1"
+  }
+}
