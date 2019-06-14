@@ -1,3 +1,5 @@
+const path = require('path');
+
 // Html routes
 module.exports = function(app) {
   // The index page html route end-point
