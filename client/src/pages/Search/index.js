@@ -84,7 +84,7 @@ export default class Search extends Component {
           dismissible
           onClose={handleDismiss}
         >
-          There was a problem: {this.state.errorMessage}
+          {this.state.errorMessage}
         </Alert>
         <ListGroup>
           {this.state.searchResults.map(result => (
