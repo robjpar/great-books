@@ -46,7 +46,8 @@ export default class Search extends Component {
       authors: searchResult.volumeInfo.authors,
       description: searchResult.volumeInfo.description,
       thumbnail: searchResult.volumeInfo.imageLinks.thumbnail,
-      infoLink: searchResult.volumeInfo.infoLink
+      infoLink: searchResult.volumeInfo.infoLink,
+      date: Date.now()
     };
     Api.saveBook(bookInfo)
       .then(res => {
@@ -122,6 +123,7 @@ export default class Search extends Component {
                   <Button
                     variant="outline-warning"
                     onClick={() => this.saveBook(result)}
+                    disabled={this.state.savedIds[result.id] ? true : false}
                   >
                     {this.state.savedIds[result.id] ? 'Saved' : 'Save'}
                   </Button>

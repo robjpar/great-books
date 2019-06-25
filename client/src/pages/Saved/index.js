@@ -21,7 +21,10 @@ export default class Saved extends Component {
     Api.getSavedBooks()
       .then(res => {
         if (res.data.length === 0)
-          return this.setState({ errorMessage: 'No saved books.' });
+          return this.setState({
+            savedBooks: res.data,
+            errorMessage: 'No saved books.'
+          });
         this.setState({ savedBooks: res.data, errorMessage: '' });
       })
       .catch(err => this.setState({ errorMessage: err.message }));
