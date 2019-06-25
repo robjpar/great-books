@@ -6,8 +6,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 export default function Navbar2() {
   return (
     <Navbar fixed="top" collapseOnSelect expand="md" bg="dark" variant="dark">
-      <Navbar.Brand href="/search">Google Books</Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Brand href="/">Google Books</Navbar.Brand>
+      <Navbar.Toggle />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
           <LinkContainer to="/search">

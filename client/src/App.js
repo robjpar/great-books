@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Search from './pages/Search';
 import Saved from './pages/Saved';
@@ -9,9 +9,10 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Switch>
+        <Route exact path="/" render={() => <Redirect to="/search" />} />
         <Route exact path="/search" component={Search} />
         <Route exact path="/saved" component={Saved} />
-        <Route component={Search} />
+        <Route render={() => <Redirect to="/search" />} />
       </Switch>
     </BrowserRouter>
   );
