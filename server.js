@@ -1,15 +1,9 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const path = require('path');
+const routes = require('./routes');
 
-// Link to mLab MongoDB (Heroku) or local MongoDB
-const MONGODB_URI =
-  process.env.MONGODB_URI || 'mongodb://localhost/prudent_pantry_db';
-
-// Connect to the Mongo DB
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true
-});
+// Connect to MongoDB
+require('./config/connection');
 
 // Server configuration
 const app = express();
@@ -19,14 +13,15 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'client', 'build')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client', 'build')));
+}
 
 // Routing
-require('./routes/api-routes.js')(app);
-require('./routes/html-routes.js')(app);
+app.use(routes);
 
 // Start the server
 const port = process.env.PORT || 3001;
 app.listen(port, function() {
-  console.log(`Server ${__filename} listening on http://localhost:${port}`);
+  console.log(`Server ${__filename} listening on port ${port}`);
 });
