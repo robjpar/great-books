@@ -10,5 +10,8 @@ export default {
       maxResults: 20
     };
     return axios.get(url, { params: params });
+  },
+  saveBook: function(bookInfo) {
+    return axios.post('api/books', bookInfo);
   }
 };

@@ -7,9 +7,15 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Media from 'react-bootstrap/Media';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 export default class Search extends Component {
-  state = { searchTerm: '', searchResults: [], errorMessage: '' };
+  state = {
+    searchTerm: '',
+    searchResults: [],
+    errorMessage: '',
+    savedIds: {}
+  };
 
   componentDidMount() {
     this.searchInput.focus();
@@ -31,6 +37,24 @@ export default class Search extends Component {
       .catch(err =>
         this.setState({ errorMessage: err.response.data.error.message })
       );
+  };
+
+  saveBook = searchResult => {
+    const bookInfo = {
+      id: searchResult.id,
+      title: searchResult.volumeInfo.title,
+      authors: searchResult.volumeInfo.authors,
+      description: searchResult.volumeInfo.description,
+      thumbnail: searchResult.volumeInfo.imageLinks.thumbnail,
+      infoLink: searchResult.volumeInfo.infoLink
+    };
+    Api.saveBook(bookInfo)
+      .then(res => {
+        const savedIds = this.state.savedIds;
+        savedIds[res.data.id] = true;
+        this.setState({ savedIds });
+      })
+      .catch(err => this.setState({ errorMessage: err.message }));
   };
 
   render() {
@@ -72,7 +96,7 @@ export default class Search extends Component {
                   src={result.volumeInfo.imageLinks.thumbnail}
                   alt={result.id}
                 />
-                <Media.Body>
+                <Media.Body className="mr-3">
                   <h4>
                     {result.volumeInfo.title ? result.volumeInfo.title : ''}
                   </h4>
@@ -87,6 +111,21 @@ export default class Search extends Component {
                       : ''}
                   </p>
                 </Media.Body>
+                <ButtonGroup vertical>
+                  <Button
+                    variant="outline-info"
+                    href={result.volumeInfo.infoLink}
+                    target="_blank"
+                  >
+                    More Info
+                  </Button>
+                  <Button
+                    variant="outline-warning"
+                    onClick={() => this.saveBook(result)}
+                  >
+                    {this.state.savedIds[result.id] ? 'Saved' : 'Save'}
+                  </Button>
+                </ButtonGroup>
               </Media>
             </ListGroup.Item>
           ))}
