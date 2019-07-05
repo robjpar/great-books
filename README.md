@@ -13,7 +13,8 @@ Great Books is web application which allows users to search for books and save t
 ## Technologies & Frameworks
 
 - React, React Router, React Bootstrap
-- Node.js, Express, axios
+- JavaScript, AJAX
+- Node.js, Express, RESTful API
 - MongoDB, Mongoose ORM
 - Heroku platform
 
